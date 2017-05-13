@@ -105,7 +105,7 @@ public class ScreenWindow extends Application {
 				double imageViewWidth = imageView.getFitWidth();
 				double sceneX = e.getSceneX();
 				double sceneY = e.getSceneY();
-				System.out.println("sceneX: " + sceneX + " sceneY: " + sceneY);
+//				System.out.println("sceneX: " + sceneX + " sceneY: " + sceneY);
 				// 宽 / 高
 				if (ComputerModel.model.getScreenheight() != 0
 						&& ComputerModel.model.getScreenheight() != 0) {
@@ -114,7 +114,7 @@ public class ScreenWindow extends Application {
 					int originImageWidth = ComputerModel.model.getScreenwidth();
 					double rate = (double) originImageWidth
 							/ (double) originImageHeight;
-					System.out.println(rate);
+//					System.out.println(rate);
 					double realImageHeight, realImageWidth;
 					if (imageViewWidth / imageViewHeight > rate) {
 						realImageHeight = imageViewHeight;
@@ -123,8 +123,8 @@ public class ScreenWindow extends Application {
 						realImageWidth = imageViewWidth;
 						realImageHeight = realImageWidth / rate;
 					}
-					System.out.println("realImageWidth: " + realImageWidth
-							+ " realImageHeight: " + realImageHeight);
+//					System.out.println("realImageWidth: " + realImageWidth
+//							+ " realImageHeight: " + realImageHeight);
 					if (sceneX < realImageWidth && sceneY < realImageHeight) {
 						ObjectMessage objectMessage = new ObjectMessage();
 						objectMessage.setMsgType(MsgType.MOUSE_MOVE);
@@ -136,8 +136,8 @@ public class ScreenWindow extends Application {
 								* originImageWidth;
 						objectMessage.setX(realX);
 						objectMessage.setY(realY);
-						System.out.println("realX: " + realX + " realY: "
-								+ realY);
+//						System.out.println("realX: " + realX + " realY: "
+//								+ realY);
 						try {
 							ScreenModule.getInstance().sendData(objectMessage);
 						} catch (Exception e1) {

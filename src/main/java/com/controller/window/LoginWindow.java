@@ -63,12 +63,7 @@ public class LoginWindow extends Application {
 		// 放置面板中的node
 		Label nameLabel = new Label("用户名:");
 		TextField nameText = new TextField();
-		Button forgetBtn = new Button("忘记密码");
-		forgetBtn.setBackground(null);
-		forgetBtn.setUnderline(true);
-		forgetBtn.setOnAction(e -> {
-			stage.setScene(ForgetScene());
-		});
+
 		Label passwordLabel = new Label("密码:");
 		PasswordField passwordText = new PasswordField();
 		Button loginBtn = new Button("登陆");
@@ -86,7 +81,6 @@ public class LoginWindow extends Application {
 		});
 		pane.add(nameLabel, 0, 0);
 		pane.add(nameText, 1, 0);
-		pane.add(forgetBtn, 2, 0);
 		pane.add(passwordLabel, 0, 1);
 		pane.add(passwordText, 1, 1);
 		pane.add(registBtn, 2, 1);
@@ -141,44 +135,6 @@ public class LoginWindow extends Application {
 		return scene;
 	}
 
-	// 忘记密码界面
-	private Scene ForgetScene() {
-		GridPane pane = new GridPane();
-		pane.setAlignment(Pos.CENTER);
-		pane.setPadding(new Insets(30, 30, 30, 30));
-		pane.setHgap(5.5);
-		pane.setVgap(5.5);
-
-		// 放置面板中的node
-		Label mailLabel = new Label("邮箱:");
-		TextField mailText = new TextField();
-		Label passwordLabel = new Label("新密码:");
-		TextField passwordText = new TextField();
-		Label passwordLabel1 = new Label("确认新密码:");
-		TextField passwordText1 = new TextField();
-		Button loginBtn = new Button("登录 ");
-		loginBtn.setBackground(null);
-		loginBtn.setUnderline(true);
-		loginBtn.setOnAction(new LoginHandler());
-		Button changeBtn = new Button("修改密码");
-		changeBtn.setPadding(new Insets(10, 30, 10, 30));
-		// 修改密码事件
-		changeBtn.setOnAction(e -> {
-			ChangeAction(mailText.getText());
-		});
-		pane.add(mailLabel, 0, 1);
-		pane.add(mailText, 1, 1);
-		pane.add(loginBtn, 2, 1);
-		pane.add(passwordLabel, 0, 2);
-		pane.add(passwordText, 1, 2);
-		pane.add(passwordLabel1, 0, 3);
-		pane.add(passwordText1, 1, 3);
-		pane.add(changeBtn, 1, 4);
-		GridPane.setHalignment(changeBtn, HPos.CENTER);
-
-		Scene scene = new Scene(pane, 350, 250);
-		return scene;
-	}
 
 	// 登录界面跳转
 	class LoginHandler implements EventHandler<ActionEvent> {
@@ -198,17 +154,6 @@ public class LoginWindow extends Application {
 		public void handle(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			stage.setScene(RegistScene());
-		}
-
-	}
-
-	// 忘记密码界面跳转
-	class ForgetHandler implements EventHandler<ActionEvent> {
-
-		@Override
-		public void handle(ActionEvent arg0) {
-			// TODO Auto-generated method stub
-			stage.setScene(ForgetScene());
 		}
 
 	}
@@ -241,15 +186,11 @@ public class LoginWindow extends Application {
 		serverThread.sendData(json.toJSONString());
 	}
 
-	private static void ChangeAction(String mail) {
-
-	}
 
 	public static void main(String[] args) {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				try {
 					LoginWindow.getInstance().start(new Stage());
 				} catch (Exception e) {
