@@ -1,6 +1,10 @@
 package com.controller.window;
 
+import com.alibaba.fastjson.JSONObject;
 import com.controller.model.ComputerModel;
+import com.controller.server.BusinessModule;
+import com.server.net.ClientType;
+import com.server.net.MsgType;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -94,7 +98,7 @@ public class MainWindow extends Application {
 		Button button2 = new Button("命令行");
 		button2.setPrefSize(500, 50);
 		if(ComputerModel.model == null){
-//			button2.setDisable(true);
+			button2.setDisable(true);
 		}
 		button2.setOnAction(e->{
 			Platform.runLater(() ->{
@@ -113,7 +117,7 @@ public class MainWindow extends Application {
 			button3.setDisable(true);
 		}
 		button3.setOnAction(e->{
-			
+			shutDown();
 		});
 		gridPane.add(button1, 0, 0);
 		gridPane.add(button2, 0, 1);
@@ -122,6 +126,22 @@ public class MainWindow extends Application {
 		flowPane.getChildren().add(gridPane);
 		Scene scene = new Scene(flowPane,700,450);
 		return scene;
+		
+	}
+	
+	private void shutDown(){
+		JSONObject json = new JSONObject();
+		if(ComputerModel.model == null){
+			json.put("msgType", MsgType.CMD);
+			json.put("tempid", ComputerModel.model.getTempid());
+			json.put("client", ClientType.CONTROLLER);
+			if(ComputerModel.model.getOs().contains("windows")||ComputerModel.model.getOs().contains("Windows")){
+				json.put("message", "shutdown -s -t 60");				
+			}else if(ComputerModel.model.getOs().contains("linux")||ComputerModel.model.getOs().contains("Linux")){
+				json.put("message", "shutdown -h 1");								
+			}
+			BusinessModule.getInstance().sendData(json.toJSONString());
+		}
 		
 	}
 
